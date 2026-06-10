@@ -111,35 +111,31 @@ export default function PatientFavoris() {
             filtered.map((doc, i) => (
               <div
                 key={doc.id}
-                className={`px-5 py-4 flex items-center gap-4 hover:bg-slate-50 transition-colors ${i < filtered.length - 1 ? 'border-b border-slate-100' : ''}`}
+                className={`px-4 py-4 flex flex-wrap items-center gap-3 hover:bg-slate-50 transition-colors ${i < filtered.length - 1 ? 'border-b border-slate-100' : ''}`}
               >
-                {/* Avatar */}
-                <div
-                  className="w-12 h-12 rounded-full flex items-center justify-center text-sm font-bold shrink-0"
-                  style={{ backgroundColor: (avatarColor(doc.color)) + '18', color: avatarColor(doc.color) }}
-                >
-                  {doc.avatar}
-                </div>
-
-                {/* Info */}
-                <div className="flex-1 min-w-0">
-                  <div className="text-[14px] font-bold text-primary-600">{doc.nom}</div>
-                  <div className="text-[12px] text-slate-500 mt-0.5">{doc.specialty}</div>
-                  <div className="flex items-center gap-1 text-[11px] text-slate-400 mt-0.5">
-                    <MapPinIcon /> {doc.wilaya}
+                {/* Avatar + Info */}
+                <div className="flex items-center gap-3 flex-1 min-w-0">
+                  <div
+                    className="w-11 h-11 rounded-full flex items-center justify-center text-sm font-bold shrink-0"
+                    style={{ backgroundColor: (avatarColor(doc.color)) + '18', color: avatarColor(doc.color) }}
+                  >
+                    {doc.avatar}
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="text-[14px] font-bold text-primary-600 truncate">{doc.nom}</div>
+                    <div className="text-[12px] text-slate-500 mt-0.5">{doc.specialty}</div>
+                    <div className="flex items-center gap-1 text-[11px] text-slate-400 mt-0.5">
+                      <MapPinIcon /> {doc.wilaya}
+                    </div>
                   </div>
                 </div>
 
-                {/* Availability */}
-                <div className="shrink-0">
+                {/* Availability + Actions */}
+                <div className="flex items-center gap-2 shrink-0">
                   {doc.disponible
                     ? <span className="text-[11px] font-semibold text-green-600">Disponible</span>
                     : <span className="text-[11px] font-semibold text-slate-400">Indisponible</span>
                   }
-                </div>
-
-                {/* Actions */}
-                <div className="flex items-center gap-2 shrink-0">
                   <button
                     onClick={() => navigate('/doctors')}
                     className="flex items-center gap-1.5 bg-slate-100 text-slate-700 text-[12px] font-semibold px-3 py-1.5 rounded-lg hover:bg-slate-200 transition-colors cursor-pointer border-0"

@@ -145,6 +145,10 @@ export default function PatientNotifications() {
         .filter-btn:hover { background-color: #F1F5F9 !important; }
         @keyframes fadeSlide { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
         .fade-in { animation: fadeSlide 0.3s ease both; }
+        @media(max-width:768px) {
+          .notif-nav-links { display:none !important; }
+          .notif-cta-btn { display:none !important; }
+        }
         .skeleton { animation: pulse 1.5s ease infinite; background: #E2E8F0; border-radius: 8px; }
         @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
       `}</style>
@@ -153,7 +157,7 @@ export default function PatientNotifications() {
       <nav style={s.navbar}>
         <div style={s.navInner}>
           <Link to="/" style={s.logo}>Frey<span style={s.logoAccent}>a</span></Link>
-          <div style={s.navLinks}>
+          <div className="notif-nav-links" style={s.navLinks}>
             {navLinks.map(link => (
               <Link key={link.id} to={link.path} className="nav-lnk" style={s.navLink(false)}>
                 {link.label}
@@ -161,7 +165,7 @@ export default function PatientNotifications() {
             ))}
           </div>
           <div style={s.navRight}>
-            <button style={s.ctaBtn} onClick={() => navigate('/doctors')}>Prendre RDV</button>
+            <button className="notif-cta-btn" style={s.ctaBtn} onClick={() => navigate('/doctors')}>Prendre RDV</button>
             <div style={{ position: 'relative' }} onClick={e => e.stopPropagation()}>
               <button style={s.userBtn} onClick={() => setShowUserMenu(v => !v)}>
                 <div style={s.userAvatar}>{initials}</div>

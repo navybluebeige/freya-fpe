@@ -129,12 +129,12 @@ export default function LabAppointments() {
       <LabNavbar active="appointments" />
 
       <div className="max-w-6xl mx-auto px-4 md:px-6 py-5 md:py-7">
-        <div className="flex items-start justify-between mb-6">
+        <div className="flex flex-wrap items-start justify-between gap-3 mb-6">
           <div>
             <h1 className="text-xl md:text-2xl font-extrabold text-slate-900 tracking-tight">Rendez-vous</h1>
             <p className="text-sm text-slate-500 mt-1">Gérez les demandes d'analyses de vos patients</p>
           </div>
-          <button onClick={load} className="text-sm text-primary-600 border border-primary-200 bg-white rounded-xl px-3 md:px-4 py-2 font-semibold cursor-pointer hover:bg-primary-50 transition-colors">
+          <button onClick={load} className="text-sm text-primary-600 border border-primary-200 bg-white rounded-xl px-3 md:px-4 py-2 font-semibold cursor-pointer hover:bg-primary-50 transition-colors shrink-0">
             Actualiser
           </button>
         </div>
@@ -155,7 +155,7 @@ export default function LabAppointments() {
         </div>
 
         {/* Tabs */}
-        <div className="flex gap-1 bg-white border border-slate-200 rounded-xl p-1.5 mb-5 w-fit">
+        <div className="flex gap-1 bg-white border border-slate-200 rounded-xl p-1.5 mb-5 overflow-x-auto">
           {[
             { id: 'all',       label: 'Tous'      },
             { id: 'pending',   label: 'En attente' },
@@ -193,8 +193,8 @@ export default function LabAppointments() {
             <p className="text-sm text-slate-400">Les demandes d'analyses apparaîtront ici</p>
           </div>
         ) : (
-          <div className="bg-white rounded-2xl border border-slate-200 shadow-card overflow-hidden">
-            <table className="w-full border-collapse">
+          <div className="bg-white rounded-2xl border border-slate-200 shadow-card overflow-x-auto">
+            <table className="w-full border-collapse min-w-[640px]">
               <thead>
                 <tr className="bg-slate-50 border-b border-slate-200">
                   {['Patient', 'Date', 'Heure', 'Motif', 'Statut', 'Actions'].map(h => (

@@ -99,6 +99,7 @@ export default function HomePage() {
   const [search, setSearch] = useState('');
   const [wilaya, setWilaya] = useState('');
   const [activeTab, setActiveTab] = useState('rdv');
+  const [mobileMenu, setMobileMenu] = useState(false);
   const navigate = useNavigate();
 
   const handleSearch = () => navigate('/doctors');
@@ -121,12 +122,15 @@ export default function HomePage() {
         .lab-pill:hover { border-color: #2563EB !important; color: #2563EB !important; }
         @keyframes fadeUp { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
         @keyframes spin { to { transform: rotate(360deg); } }
+        .hp-hamburger { display:none; align-items:center; justify-content:center; background:rgba(255,255,255,0.15); border:1px solid rgba(255,255,255,0.3); border-radius:8px; padding:7px; cursor:pointer; color:#fff; flex-shrink:0; }
         @media(max-width:768px) {
           .hp-stats-grid { grid-template-columns: repeat(2,1fr) !important; }
           .hp-steps-grid { grid-template-columns: 1fr !important; gap:16px !important; }
           .hp-steps-grid2 { grid-template-columns: 1fr !important; gap:16px !important; }
           .hp-nav-links { display:none !important; }
-          .hp-hero { padding:32px 16px 40px !important; }
+          .hp-nav-actions { display:none !important; }
+          .hp-hamburger { display:flex !important; }
+          .hp-hero { padding:80px 16px 60px !important; }
           .hp-search { flex-direction:column; height:auto !important; border-radius:14px !important; }
           .hp-search-field { border-right:none !important; border-bottom:1px solid #E8EDF2; height:48px; }
           .hp-search-divider { display:none !important; }
@@ -151,12 +155,41 @@ export default function HomePage() {
             <a href="#how" className="nav-lnk" style={s.navLink}>Comment ça marche</a>
             <a href="#specialties" className="nav-lnk" style={s.navLink}>Spécialités</a>
           </div>
-          <div style={s.navActions}>
+          <div style={s.navActions} className="hp-nav-actions">
             <Link to="/login" className="login-btn-hp" style={s.loginBtn}>Connexion</Link>
             <Link to="/register" className="reg-btn-hp" style={s.registerBtn}>Créer un compte</Link>
           </div>
+          {/* Hamburger (mobile) */}
+          <button className="hp-hamburger" onClick={() => setMobileMenu(v => !v)}>
+            {mobileMenu
+              ? <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+              : <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+            }
+          </button>
         </div>
       </nav>
+
+      {/* Mobile menu */}
+      {mobileMenu && (
+        <div style={{ position:'fixed', top:0, left:0, right:0, bottom:0, background:'rgba(15,23,42,0.97)', zIndex:99, paddingTop:64, overflowY:'auto' }} onClick={() => setMobileMenu(false)}>
+          <div onClick={e => e.stopPropagation()}>
+            {[['#rdv','Rendez-vous'],['#lab','Résultats d\'analyses'],['#how','Comment ça marche'],['#specialties','Spécialités']].map(([href, label]) => (
+              <a key={href} href={href} onClick={() => setMobileMenu(false)}
+                style={{ display:'block', padding:'16px 24px', color:'rgba(255,255,255,0.85)', fontSize:16, fontWeight:600, textDecoration:'none', borderBottom:'1px solid rgba(255,255,255,0.07)' }}>
+                {label}
+              </a>
+            ))}
+            <div style={{ padding:'20px 16px', display:'flex', flexDirection:'column', gap:10 }}>
+              <Link to="/login" onClick={() => setMobileMenu(false)} style={{ display:'block', padding:'13px 20px', background:'rgba(255,255,255,0.1)', color:'#fff', borderRadius:10, fontSize:15, fontWeight:700, textDecoration:'none', textAlign:'center', border:'1.5px solid rgba(255,255,255,0.25)' }}>
+                Se connecter
+              </Link>
+              <Link to="/register" onClick={() => setMobileMenu(false)} style={{ display:'block', padding:'13px 20px', background:'#2563EB', color:'#fff', borderRadius:10, fontSize:15, fontWeight:700, textDecoration:'none', textAlign:'center' }}>
+                Créer un compte
+              </Link>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* ══ HERO ══ */}
       <section style={s.hero} className="hp-hero">

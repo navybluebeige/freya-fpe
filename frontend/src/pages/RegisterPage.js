@@ -252,7 +252,7 @@ function PatientForm({ onBack, navigate }) {
         <div>
           <div style={s.stepTitle}>Votre identité</div>
           <p style={s.stepSub}>Ces informations seront visibles par vos médecins</p>
-          <div style={s.row2}>
+          <div className="reg-row2">
             <Field label="Prénom" required>
               <Input placeholder="Sara" value={form.firstName} onChange={e => set('firstName', e.target.value)} />
             </Field>
@@ -387,7 +387,7 @@ function DoctorForm({ onBack, navigate }) {
           <Field label="Adresse email professionnelle" required>
             <Input placeholder="dr.nom@email.com" value={form.email} onChange={e => set('email', e.target.value)} />
           </Field>
-          <div style={s.row2}>
+          <div className="reg-row2">
             <Field label="Prénom" required>
               <Input placeholder="Yacine" value={form.firstName} onChange={e => set('firstName', e.target.value)} />
             </Field>
@@ -410,7 +410,7 @@ function DoctorForm({ onBack, navigate }) {
               {SPECIALITES.map(sp => <option key={sp} value={sp}>{sp}</option>)}
             </Select>
           </Field>
-          <div style={s.row2}>
+          <div className="reg-row2">
             <Field label="Wilaya" required>
               <Select value={form.wilaya} onChange={e => set('wilaya', e.target.value)}>
                 {WILAYAS.map(w => <option key={w} value={w}>{w}</option>)}
@@ -605,7 +605,7 @@ function LabForm({ onBack, navigate }) {
           <Field label="Adresse complète" required>
             <Input placeholder="Ex: 5 rue Ibn Khaldoun, Alger Centre" value={form.address} onChange={e => set('address', e.target.value)} />
           </Field>
-          <div style={s.row2}>
+          <div className="reg-row2">
             <Field label="Wilaya" required>
               <Select value={form.wilaya} onChange={e => set('wilaya', e.target.value)}>
                 {WILAYAS.map(w => <option key={w} value={w}>{w}</option>)}
@@ -725,7 +725,12 @@ export default function RegisterPage() {
 
   return (
     <div style={s.root}>
-      <style>{`*, *::before, *::after { box-sizing: border-box; } input:focus, select:focus, textarea:focus { border-color: #2563EB !important; box-shadow: 0 0 0 3px rgba(37,99,235,0.1) !important; outline: none; background: #fff !important; }`}</style>
+      <style>{`
+        *, *::before, *::after { box-sizing: border-box; }
+        input:focus, select:focus, textarea:focus { border-color: #2563EB !important; box-shadow: 0 0 0 3px rgba(37,99,235,0.1) !important; outline: none; background: #fff !important; }
+        .reg-row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+        @media(max-width: 480px) { .reg-row2 { grid-template-columns: 1fr; } }
+      `}</style>
 
       <div style={s.header}>
         <Link to="/" style={s.logo}>Freya</Link>

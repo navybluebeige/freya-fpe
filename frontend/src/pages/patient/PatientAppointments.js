@@ -242,18 +242,20 @@ export default function PatientAppointments() {
               return (
                 <div
                   key={appt.id}
-                  className={`flex items-center gap-3.5 rounded-2xl p-5 mb-2.5 border transition-all hover:shadow-card ${
+                  className={`flex flex-col sm:flex-row sm:items-center gap-3 rounded-2xl p-4 sm:p-5 mb-2.5 border transition-all hover:shadow-card ${
                     appt.status === 'cancelled' ? 'bg-red-50/30 border-red-200' : 'bg-white border-slate-200'
                   }`}
                 >
+                  {/* Left: date + avatar + info */}
+                  <div className="flex items-center gap-3 flex-1 min-w-0">
                   {/* Date */}
-                  <div className="bg-primary-50 rounded-xl px-3.5 py-2.5 text-center min-w-[60px] shrink-0">
+                  <div className="bg-primary-50 rounded-xl px-3 py-2.5 text-center min-w-[52px] shrink-0">
                     <div className="text-xl font-extrabold text-primary-600 tracking-tighter">{day}</div>
                     <div className="text-[10px] text-slate-400 uppercase tracking-wide">{month}</div>
                   </div>
-                  <div className="w-px h-12 bg-slate-200 shrink-0" />
+                  <div className="w-px h-12 bg-slate-200 shrink-0 hidden sm:block" />
                   {/* Avatar */}
-                  <div className={`w-11 h-11 rounded-xl flex items-center justify-center text-xs font-bold shrink-0 ${avatarCls}`}>
+                  <div className={`w-10 h-10 rounded-xl flex items-center justify-center text-xs font-bold shrink-0 ${avatarCls}`}>
                     {isLab ? '🔬' : initials}
                   </div>
                   {/* Info */}
@@ -278,8 +280,9 @@ export default function PatientAppointments() {
                       <span className={`text-[11px] font-semibold px-2.5 py-0.5 rounded-full ${st.cls}`}>{st.label}</span>
                     </div>
                   </div>
+                  </div>{/* end left wrapper */}
                   {/* Actions */}
-                  <div className="flex gap-2 shrink-0 flex-wrap">
+                  <div className="flex gap-2 flex-wrap justify-end sm:shrink-0">
                     {appt.status === 'completed' && (
                       <div className="flex gap-2">
                         {!appt._reviewed && (

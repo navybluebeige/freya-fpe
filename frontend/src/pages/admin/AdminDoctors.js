@@ -57,18 +57,18 @@ export default function AdminDoctors() {
 
       <div className="max-w-6xl mx-auto px-4 md:px-6 py-5 md:py-7">
         {/* Header */}
-        <div className="flex items-center justify-between mb-6">
+        <div className="flex flex-wrap items-start justify-between gap-3 mb-6">
           <div>
             <h1 className="text-xl md:text-2xl font-extrabold text-slate-900 tracking-tight">Gestion des médecins</h1>
             <p className="text-sm text-slate-500 mt-1">Approuvez ou refusez les demandes d'inscription des médecins</p>
           </div>
           {/* Filter tabs */}
-          <div className="flex gap-1.5 bg-white border border-slate-200 rounded-xl p-1.5">
-            {[['all','Tous'], ['pending','En attente'], ['approved','Approuvés']].map(([val, label]) => (
+          <div className="flex gap-1.5 bg-white border border-slate-200 rounded-xl p-1.5 flex-shrink-0">
+            {[['all','Tous'], ['pending','Attente'], ['approved','Approuvés']].map(([val, label]) => (
               <button
                 key={val}
                 onClick={() => setFilter(val)}
-                className={`px-4 py-1.5 rounded-lg text-sm font-semibold transition-all cursor-pointer border-0 font-sans ${
+                className={`px-3 py-1.5 rounded-lg text-sm font-semibold transition-all cursor-pointer border-0 font-sans whitespace-nowrap ${
                   filter === val
                     ? 'bg-primary-600 text-white'
                     : 'text-slate-500 hover:text-primary-600'

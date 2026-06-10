@@ -57,10 +57,17 @@ export default function LoginPage() {
         .btn-primary:hover:not(:disabled) { background:#1D4ED8; }
         .btn-primary:disabled { opacity:.6; cursor:not-allowed; }
         .pw-toggle { position:absolute; right:14px; top:50%; transform:translateY(-50%); background:none; border:none; cursor:pointer; color:#94A3B8; padding:2px; display:flex; align-items:center; }
+        @media(max-width:768px) {
+          .login-panel-left { display:none !important; }
+          .login-panel-right { padding:32px 24px !important; min-height:100vh; }
+        }
+        @media(max-width:400px) {
+          .login-panel-right { padding:24px 16px !important; }
+        }
       `}</style>
 
       {/* ── Panneau gauche — branding ─────────────────────────────────── */}
-      <div style={{
+      <div className="login-panel-left" style={{
         width: '45%', background: 'linear-gradient(160deg, #0F172A 0%, #1E3A8A 60%, #2563EB 100%)',
         display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: '60px',
         position: 'relative', overflow: 'hidden', flexShrink: 0,
@@ -97,7 +104,7 @@ export default function LoginPage() {
       </div>
 
       {/* ── Panneau droit — formulaire ────────────────────────────────── */}
-      <div style={{ flex:1, display:'flex', flexDirection:'column', justifyContent:'center', padding:'60px 64px', background:'#F8FAFC', overflowY:'auto' }}>
+      <div className="login-panel-right" style={{ flex:1, display:'flex', flexDirection:'column', justifyContent:'center', padding:'60px 64px', background:'#F8FAFC', overflowY:'auto' }}>
         <div style={{ maxWidth:'400px', width:'100%', margin:'0 auto', animation:'fadeIn .5s ease .1s both' }}>
 
           <h2 style={{ fontSize:'28px', fontWeight:'800', color:'#0F172A', letterSpacing:'-0.7px', marginBottom:'6px' }}>

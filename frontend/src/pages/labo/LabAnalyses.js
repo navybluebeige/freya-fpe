@@ -127,8 +127,8 @@ export default function LabAnalyses() {
                 <span className="text-sm font-bold text-slate-900">{cat.cat}</span>
                 <span className="text-[11px] text-slate-400">{cat.items.length} analyses</span>
               </div>
-
-              <table className="w-full border-collapse">
+              <div className="overflow-x-auto">
+              <table className="w-full border-collapse min-w-[480px]">
                 <thead>
                   <tr>
                     <th className="text-left px-5 py-2.5 text-[10px] font-bold text-slate-400 uppercase tracking-wide">Examen</th>
@@ -181,6 +181,7 @@ export default function LabAnalyses() {
                   ))}
                 </tbody>
               </table>
+              </div>{/* end overflow-x-auto */}
 
               {/* Ajouter une analyse */}
               {addingCat === cat.id ? (
