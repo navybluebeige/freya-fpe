@@ -5,9 +5,9 @@ import { authAPI } from '../services/api';
 import useAuthStore from '../store/authStore';
 
 const DEMO_ACCOUNTS = [
-  { role: 'Patient',    email: 'scenario.patient@freya.dz', pass: 'FreyaDemo2026!', icon: '👤', color: '#2563EB', bg: '#EFF6FF' },
-  { role: 'Médecin',   email: 'scenario.medecin@freya.dz', pass: 'FreyaDemo2026!', icon: '🩺', color: '#7C3AED', bg: '#F5F3FF' },
-  { role: 'Labo',      email: 'scenario.labo@freya.dz',    pass: 'FreyaDemo2026!', icon: '🔬', color: '#059669', bg: '#ECFDF5' },
+  { role: 'Patient',    email: 'demo.patient@freya.dz', pass: 'FreyaDemo2026!', icon: '👤', color: '#2563EB', bg: '#EFF6FF' },
+  { role: 'Médecin',   email: 'demo.medecin@freya.dz', pass: 'FreyaDemo2026!', icon: '🩺', color: '#7C3AED', bg: '#F5F3FF' },
+  { role: 'Labo',      email: 'demo.labo@freya.dz',    pass: 'FreyaDemo2026!', icon: '🔬', color: '#059669', bg: '#ECFDF5' },
 ];
 
 export default function LoginPage() {

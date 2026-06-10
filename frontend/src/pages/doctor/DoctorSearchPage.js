@@ -454,7 +454,7 @@ export default function DoctorSearchPage() {
        {/* ── NAVBAR ── */}
 <nav className="sp-nav">
   <div className="sp-nav-in">
-    <Link to="/" className="sp-logo">Freya</Link>
+    <Link to="/patient" className="sp-logo">Freya</Link>
 
     <div className="sp-nav-links">
       <Link to="/patient" className="sp-nav-link">Accueil</Link>
