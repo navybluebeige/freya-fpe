@@ -164,6 +164,77 @@ function slugify(str) {
 async function main() {
   console.log('🌱 Démarrage du seed — 100 médecins algériens...\n');
 
+  // ── Comptes démo ──────────────────────────────────────────────────────────
+  console.log('👤 Création des comptes démo...');
+  const demoHash = await bcrypt.hash('FreyaDemo2026!', 10);
+
+  await prisma.user.upsert({
+    where:  { email: 'demo.admin@freya.dz' },
+    update: {},
+    create: { email: 'demo.admin@freya.dz', password: demoHash, role: 'admin', firstName: 'Admin', lastName: 'Freya', isActive: true, isVerified: true },
+  });
+
+  await prisma.user.upsert({
+    where:  { email: 'demo.patient@freya.dz' },
+    update: {},
+    create: {
+      email: 'demo.patient@freya.dz', password: demoHash, role: 'patient',
+      firstName: 'Sara', lastName: 'Benmoussa', phone: '0661234567', wilaya: 'Alger',
+      isActive: true, isVerified: true,
+      patientProfile: { create: { gender: 'female', bloodType: 'A+' } },
+    },
+  });
+
+  await prisma.user.upsert({
+    where:  { email: 'demo.medecin@freya.dz' },
+    update: {},
+    create: {
+      email: 'demo.medecin@freya.dz', password: demoHash, role: 'doctor',
+      firstName: 'Karim', lastName: 'Hadj', phone: '0551234567', wilaya: 'Alger',
+      isActive: true, isVerified: true,
+      doctor: {
+        create: {
+          specialite: 'Cardiologue', ordreNumber: 'DEMO-CARD-001',
+          ordreVerified: true, adminApproved: true,
+          cabinetAddress: '12 Rue Didouche Mourad, Alger',
+          wilaya: 'Alger', city: 'Hydra',
+          bio: 'Cardiologue expérimenté avec 15 ans de pratique.',
+          consultationPrice: 3000, languages: 'Français,Arabe',
+          experienceYears: 15, ratingAvg: 4.8, ratingCount: 124,
+        },
+      },
+    },
+  });
+
+  let demoClinic = await prisma.clinic.findFirst({ where: { email: 'demo.labo@freya.dz' } });
+  if (!demoClinic) {
+    demoClinic = await prisma.clinic.create({
+      data: {
+        name: 'Laboratoire Central Freya', address: '5 Rue des Frères Bouadou, Bir Mourad Raïs',
+        wilaya: 'Alger', city: 'Bir Mourad Raïs', phone: '0231234567',
+        email: 'demo.labo@freya.dz',
+        description: "Laboratoire d'analyses médicales de référence.",
+        adminApproved: true, ratingAvg: 4.6, ratingCount: 89,
+      },
+    });
+  }
+  await prisma.user.upsert({
+    where:  { email: 'demo.labo@freya.dz' },
+    update: {},
+    create: {
+      email: 'demo.labo@freya.dz', password: demoHash, role: 'laboratory',
+      firstName: 'Labo', lastName: 'Freya', wilaya: 'Alger',
+      isActive: true, isVerified: true, clinicId: demoClinic.id,
+    },
+  });
+
+  console.log('✅ Comptes démo prêts !');
+  console.log('   demo.patient@freya.dz  / FreyaDemo2026!');
+  console.log('   demo.medecin@freya.dz  / FreyaDemo2026!');
+  console.log('   demo.labo@freya.dz     / FreyaDemo2026!');
+  console.log('   demo.admin@freya.dz    / FreyaDemo2026!\n');
+  // ── Fin comptes démo ──────────────────────────────────────────────────────
+
   const hashedPassword = await bcrypt.hash('Doctor123!', 10);
   let created = 0;
   let skipped = 0;
