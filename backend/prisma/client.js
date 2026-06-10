@@ -5,10 +5,17 @@ const { PrismaClient } = require('@prisma/client');
 
 const isProd = process.env.NODE_ENV === 'production';
 
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-  ssl: isProd ? { rejectUnauthorized: false } : false,
-});
+function buildPoolConfig() {
+  const raw = process.env.DATABASE_URL;
+  if (!isProd) return { connectionString: raw };
+  // pg-connection-string treats sslmode=require as verify-full (rejects self-signed certs).
+  // Strip it from the URL and supply ssl options directly so we control the behavior.
+  const url = new URL(raw);
+  url.searchParams.delete('sslmode');
+  return { connectionString: url.toString(), ssl: { rejectUnauthorized: false } };
+}
+
+const pool    = new Pool(buildPoolConfig());
 const adapter = new PrismaPg(pool);
 
 const prisma = new PrismaClient({

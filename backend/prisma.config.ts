@@ -9,7 +9,10 @@ export default defineConfig({
   },
   migrate: {
     async adapter(envVars) {
-      const pool = new Pool({ connectionString: envVars.DATABASE_URL })
+      const raw = envVars.DATABASE_URL;
+      const url = new URL(raw);
+      url.searchParams.delete('sslmode');
+      const pool = new Pool({ connectionString: url.toString(), ssl: { rejectUnauthorized: false } });
       return new PrismaPg(pool)
     },
   },
